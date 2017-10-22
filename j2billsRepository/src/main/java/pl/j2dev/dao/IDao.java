@@ -4,11 +4,6 @@ import java.util.List;
 
 public interface IDao<T> {
 
-    final static String DBURL = "jdbc:mysql://192.166.218.87/j2bills_test";
-    final static String DBUSER = "root";
-    final static String DBPASS = "j2dev123";
-    final static String DBDRIVER = "com.mysql.jdbc.Driver";
-
     /**
      * @return every object from database of type T
      */
