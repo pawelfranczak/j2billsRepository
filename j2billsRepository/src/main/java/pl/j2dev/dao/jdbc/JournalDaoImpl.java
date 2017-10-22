@@ -101,6 +101,27 @@ public class JournalDaoImpl implements IDao<Journal>{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public List<Journal> getList(int count, int offset, long accountId) {
+		final String SQL = "select * from journal WHERE account_id = ?" + " ORDER BY id DESC LIMIT " + count + " OFFSET " + offset;
+		List<Journal> list = jdbcTemplateObject.query(SQL, new JournalMapper(), accountId);
+		for (int i = list.size()-1; i >= 0; i--) {
+			updateCache(list.get(i));
+		}
+		return list;
+	}
+	
+	public long getCountOfJournalsEntries() {
+		final String SQL = "SELECT count(*) from journal";
+		int size = jdbcTemplateObject.queryForObject(SQL, null, Integer.class);
+		return size;
+	}
+	
+	public long getCountOfJournalsEntries(long accountId) {
+		final String SQL = "SELECT count(*) from journal WHERE account_id = " + accountId;
+		int size = jdbcTemplateObject.queryForObject(SQL, null, Integer.class);
+		return size;
+	}
 
 	
 }
